@@ -14,4 +14,4 @@ the program should convert it to
 Fahrenheit and Kelvin, and present
 the converted values as outputs.
 
-(This code includes a UI)
+(This code includes a GUI)
