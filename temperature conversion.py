@@ -1,0 +1,58 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def convert_temperature():
+    try:
+        temperature_value = float(entry_value.get())
+        original_unit = combo_unit.get()
+
+        if original_unit.lower() == 'celsius':
+            celsius = temperature_value
+            fahrenheit = (celsius * 9/5) + 32
+            kelvin = celsius + 273.15
+        elif original_unit.lower() == 'fahrenheit':
+            fahrenheit = temperature_value
+            celsius = (fahrenheit - 32) * 5/9
+            kelvin = (fahrenheit + 459.67) * 5/9
+        elif original_unit.lower() == 'kelvin':
+            kelvin = temperature_value
+            celsius = kelvin - 273.15
+            fahrenheit = (kelvin * 9/5) - 459.67
+        else:
+            messagebox.showerror("Error", "Invalid unit. Please enter Celsius, Fahrenheit, or Kelvin.")
+            return
+
+        result_label.config(text=f"Converted values:\nCelsius: {celsius:.2f}\nFahrenheit: {fahrenheit:.2f}\nKelvin: {kelvin:.2f}")
+
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter a valid temperature value.")
+
+# Create the main window
+root = tk.Tk()
+root.title("Temperature Converter")
+
+# Create and place widgets
+label_value = tk.Label(root, text="Enter temperature value:")
+label_value.pack()
+
+entry_value = tk.Entry(root)
+entry_value.pack()
+
+label_unit = tk.Label(root, text="Enter original unit of measurement:")
+label_unit.pack()
+
+unit_options = ["Celsius", "Fahrenheit", "Kelvin"]
+combo_unit = tk.StringVar()
+combo_unit.set(unit_options[0])
+
+dropdown_unit = tk.OptionMenu(root, combo_unit, *unit_options)
+dropdown_unit.pack()
+
+convert_button = tk.Button(root, text="Convert", command=convert_temperature)
+convert_button.pack()
+
+result_label = tk.Label(root, text="")
+result_label.pack()
+
+# Start the GUI event loop
+root.mainloop()
